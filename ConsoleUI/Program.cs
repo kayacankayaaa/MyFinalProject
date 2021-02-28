@@ -32,11 +32,23 @@ namespace ConsoleUI
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
 
-            foreach (var product in productManager.GetProductDetails())
+            var result = productManager.GetProductDetails();
+
+            if (result.Success == true)
             {
-                Console.WriteLine(product.ProductName + " - " + product.CategoryName);
-                //iki tablo DTO'da join edilip categoryname de getirildi.
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + " - " + product.CategoryName);
+                    //iki tablo DTO'da join edilip categoryname de getirildi.
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
+
+            
         } 
     }
 }
